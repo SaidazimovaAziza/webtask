@@ -3,10 +3,21 @@
 
   <head>
   <title>Агенство недвижимости</title>
+  <style>
+      
+      #loading{
+        display: none;
+      }
+      #cards{
+        width:1200px;
+        height:200px;
+        border: 1px solid blue;
+      }
+    </style>
   <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="media.css" media="all and (max-width:900px)">
-    <script src="script1.js" defer></script>
+    
     <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
 
   </head>
@@ -39,6 +50,10 @@
     <div class="section_center">
      <div><img src="images/index.jpg"></div>
       <div><p>«Домой плюс» - активно развивающееся агентство недвижимости. Мы занимаемся покупкой, продажей, сдачей или съемом всех категорий жилой и коммерческой недвижимости города раскинувшего свои объятья на левом и правом берегах. АН «Домой плюс» постоянно совершенствует свою систему управления информацией об объектах недвижимости, что позволяет быстро находить необходимое, за что нас и ценят клиенты. С первых дней главными принципами нашей работы стали: профессионализм, надежность, честность, нацеленность на результат и ориентированность на интересы клиента.</p></div>
+       <div><button>More</button></div>
+       <div id="cards">
+      <img width="300px" height="200px" id="loading" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"/>
+    </div>
 
 
     </div>
@@ -54,6 +69,45 @@
     
   
   </div>
+  <script defer>
+var user = '{ "name": "Вася", "model": 35,"price": 11] }';
+
+var news = document.querySelector("#cards");
+var but= document.querySelector("button");
+let list = [];
+var image= document.querySelector("#loading");
+image.src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif";
+function Cards(){
+
+image.style.display="none";
+fetch("example.json").then(function(response){
+return response.json();
+}, function(){
+but.innerHTML="Some Error";
+
+}).then(function(e){
+news.innerHTML="";
+list= e;
+
+
+for (var i = 0; i < list.length; i++) {
+let card = document.createElement("div");
+let cr= document.createElement("div");
+let price = document.createElement("div");
+cr.className = "title";
+price.className = "price";
+card.className = "card";
+cr.textContent=list[i].maker + " " + list[i].model;
+price.textContent = list[i].price;
+card.append(cr);
+card.append(price);
+news.append(card);
+image.style.display="none";
+}
+})
+}
+document.querySelector("button").addEventListener('click',Cards);
+    </script>
     
   </body>
 
